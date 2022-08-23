@@ -179,10 +179,8 @@ def getFun():
     '''
     This is the function to get the upcoming weekend schedule'
     '''
-    msg = '''
-    Shut up Robin
-    '''
+    msg = '''Shut up Robin'''
     return msg
 def getNews():
-    msg = 'No'
+    msg = 'Shut up Dove'
     return msg
