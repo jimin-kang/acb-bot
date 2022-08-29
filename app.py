@@ -176,15 +176,15 @@ def getMeal_Updated(meal):
         if lineNum==0: #formatting for first line stating the meal
           # pass
           # string+=":"
-          string = string + ":"
+          string = string + ":"+"\n\n"
         else:
           #add indent to start of string
           if lineNum%2==1:
             # string = "    " + string + ":"
-            string = textwrap.indent(text=string + ":", prefix="    ")
+            string = "\n"+"***" + string + "***"
           else:
             # string = "        " + string
-            string = textwrap.indent(text=string, prefix="        ")
+            string = string
           #if string is listing items, add an extra indent at start
           #textwrap.indent(text, amount*' ')
         #add new line
