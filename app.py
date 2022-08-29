@@ -38,6 +38,8 @@ def parse_message(data):
     '''
     # get the actual text from the message that was sent in the chat
     recievedMessage = data['text'].split('\n')
+    print(f"RECEIVED MESSAGE:{recievedMessage}")
+    print(f"EDITED MESSAGE:{recievedMessage[0].lower().strip()}")
     # branch to the correct function according to the text that we got
     if recievedMessage[0].lower().strip() == '!weather':
         msg = getWeather()
