@@ -52,11 +52,11 @@ def parse_message(data):
     elif recievedMessage[0].lower().strip() == '!news':
         msg = getNews()
     elif recievedMessage[0].lower().strip() == '!breakfast':
-        msg = getMeal('Breakfast')
+        msg = getMeal_Updated('Breakfast')
     elif recievedMessage[0].lower().strip() == '!lunch':
-        msg = getMeal('Lunch')
+        msg = getMeal_Updated('Lunch')
     elif recievedMessage[0].lower().strip() == '!dinner':
-        msg = getMeal('Dinner')
+        msg = getMeal_Updated('Dinner')
     elif recievedMessage[0].lower().strip() == '!gng':
         msg = getGNG()
     elif recievedMessage[0].lower().strip() == '!help':
@@ -142,6 +142,51 @@ def getMeal(meal):
             counter += 1
             msg += string + '\n\n'
      
+    return msg
+
+def getMeal_Updated(meal):
+    '''
+    This is the function to get the current meal. If they change the meal website, this will be broken.
+    '''
+
+    today = datetime.today().strftime('%A, %B %d, %Y') #ex: Monday, August 29, 2022
+
+    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/menu')
+    soup = BeautifulSoup(page.content, 'html.parser')
+    # results = soup.find_all(id='dining-menu-' + date + '-' + meal)
+    results = soup.find(text=today)
+    # print(results.parent)
+    meals = results.parent.find_next('section').find_all('article')
+    msg = ''
+    lineNum = 0
+    mealDict = {
+        "Breakfast" : 0,
+        "Lunch" : 1,
+        "Dinner" : 2
+    }
+    mealNum = mealDict[meal]
+    for string in meals[mealNum].strings:
+      string = str(string)
+      if string=="\n":
+        # msg+="Q"+'\n'
+        pass
+      else:
+        if lineNum==0: #formatting for first line stating the meal
+          # pass
+          # string+=":"
+          string = string + ":"
+        else:
+          #add indent to start of string
+          if lineNum%2==1:
+            string = "    " + string + ":"
+          else:
+            string = "        " + string
+          #if string is listing items, add an extra indent at start
+          #textwrap.indent(text, amount*' ')
+        #add new line
+        msg+=string+'\n'
+        lineNum+=1
+    msg = "\n".join(msg.split("\n")[:-2])
     return msg
 
 def getGNG():
