@@ -8,6 +8,7 @@ import random
 from flask import Flask, request
 from pathlib import Path
 from datetime import datetime
+import textwrap
 
 
 # global variables to be used by the app later.
@@ -179,9 +180,11 @@ def getMeal_Updated(meal):
         else:
           #add indent to start of string
           if lineNum%2==1:
-            string = "    " + string + ":"
+            # string = "    " + string + ":"
+            string = textwrap.indent(text=string + ":", prefix="    ")
           else:
-            string = "        " + string
+            # string = "        " + string
+            string = textwrap.indent(text=string, prefix="        ")
           #if string is listing items, add an extra indent at start
           #textwrap.indent(text, amount*' ')
         #add new line
