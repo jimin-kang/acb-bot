@@ -176,7 +176,7 @@ def getMeal_Updated(meal):
         if lineNum==0: #formatting for first line stating the meal
           # pass
           # string+=":"
-          string = string + ":"+"\n\n"
+          string = string + ":"+"\n"
         else:
           #add indent to start of string
           if lineNum%2==1:
