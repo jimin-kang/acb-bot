@@ -230,8 +230,7 @@ def getFun():
     '''
     This is the function to get the upcoming weekend schedule'
     '''
-    msg = '''
-    Gentlemen, we've had fun over the past few days but it's time to branch out now. We're throwing the first annual Baseball Barbeque behind Mayo at 5:30. We have WoLax, WoHockey, and potentially WoSquash on the lineup card today so we're starting with a bang. Let's start the semester right.
+    msg = '''Gentlemen, we've had fun over the past few days but it's time to branch out now. We're throwing the first annual Baseball Barbeque behind Mayo at 5:30. We have WoLax, WoHockey, and potentially WoSquash on the lineup card today so we're starting with a bang. Let's start the semester right. 
     
     
     P.S. Shut up Robin
