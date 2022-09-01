@@ -61,6 +61,8 @@ def parse_message(data):
         msg = getMeal_Updated('Dinner')
     elif recievedMessage[0].lower().strip() == '!gng':
         msg = getGNG()
+    elif recievedMessage[0].lower().strip() == '!ligma':
+        msg = getLigma()
     elif recievedMessage[0].lower().strip() == '!help':
         msg = '''
 BrotherBot v1.13.0 Commands:
@@ -238,4 +240,8 @@ def getFun():
     return msg
 def getNews():
     msg = 'Shut up Dove'
+    return msg
+
+def getLigma():
+    msg = 'ligma balls bitch @Robin'
     return msg
