@@ -155,6 +155,12 @@ def getMeal_Updated(meal):
 
     today = datetime.today().strftime('%A, %B %d, %Y') #ex: Monday, August 29, 2022
 
+    #if day number is single digit, remove the extra 0 (ex: September 01 -> September 1)
+    dayNum = today.split(" ")[2] #day number will be the third element in "Monday, August 29, 2022" format
+    if dayNum.startswith("0"):
+      dayNum_edited = dayNum[1:]
+      today = today.replace(dayNum, dayNum_edited, 1)
+    
     page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/menu')
     soup = BeautifulSoup(page.content, 'html.parser')
     # results = soup.find_all(id='dining-menu-' + date + '-' + meal)
