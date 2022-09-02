@@ -238,7 +238,8 @@ def getFun():
     '''
     This is the function to get the upcoming weekend schedule'
     '''
-    msg = '''Gentlemen, we've had fun over the past few days but it's time to branch out now. We're throwing the first annual Baseball Barbeque behind Mayo at 5:30. We have WoLax, WoHockey, and potentially WoSquash on the lineup card today so we're starting with a bang. Let's start the semester right. 
+    msg = '''Gentlemen, get your party pants on and get your asses ready for our first mixer weekend. Tonight we have a change of plans due to a miscommunication (newbie😑) however we’re still in line for a great weekend in our mainstay of Mayo. Today we audible to a team tradition, just the boys. No theme. Be there or be square. 8:30. Get the weekend started right.
+After a rowdy practice on the diamond Saturday, we run it back. First themed mixer of the year will be Tight and Bright with WoSquash and Softball. Bring your most electrifying bright colors and the tightest clothing. Emphasis on the bright because tight would raise a few eyebrows. Be there. Roll Mammos. 
     
     
     P.S. Shut up Robin
