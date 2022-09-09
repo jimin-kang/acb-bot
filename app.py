@@ -238,14 +238,7 @@ def getFun():
     '''
     This is the function to get the upcoming weekend schedule'
     '''
-    msg = '''Gentlemen, be prepared for a good one this weekend. On Friday, we will be doing mystery boxes with swim. We will place everyone in teams of 6 and will race to finish a mystery box full of goodies between between you all. Yes I know we were supposed to do champagne and shackles but there has been a change of plans and we will do it next weekend. The theme for this party will be dress like your home state (make good choices Trevor).
-Saturday we will be doing Tour de Twea with women’s basketball. 6 gender neutral teams  (~6 to a team) will partake in an epic race that will forever be in Amherst baseball lore. 6 cases (18 pack) of Tweas (1 being truly since Nado DECIDED he can’t drink Twea because of an “allergy”) will be placed around campus. Your team leader with then read a rhyme, in it will be clues to where your case is located.  Once you and your team locate said case, it is your job to finish it. Once you finish it, it’s a race back to Mayo. First team back wins the prize, with the losers face a “punishment”. In other words, don’t be last.
-Sunday we will be mixing with soccer. Getting in early (around right after dinner),  staying up late. This is their only night they can go out, so they will show out and they expect us to do the same.
-Be ready boys, we got a good one ahead.
-    
-    
-    P.S. Shut up Robin
-    '''
+    msg = 'fun fun'
     return msg
 def getNews():
     msg = 'Shut up Dove'
