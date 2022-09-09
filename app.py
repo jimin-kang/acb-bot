@@ -63,6 +63,8 @@ def parse_message(data):
         msg = getGNG()
     elif recievedMessage[0].lower().strip() == '!ligma':
         msg = getLigma()
+    elif recievedMessage[0].lower().strip() == '!train':
+        msg = getTrain()
     elif recievedMessage[0].lower().strip() == '!help':
         msg = '''
 BrotherBot v1.13.0 Commands:
@@ -265,4 +267,8 @@ def getNews():
 
 def getLigma():
     msg = 'ligma balls bitch @Robin'
+    return msg
+
+def getTrain():
+    msg = 'ass wipe'
     return msg
