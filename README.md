@@ -9,7 +9,7 @@ Get the current weather.
 
 Some things to come in the future maybe. 
 
-Made by Kyler Kopacz '21, Chris Murphy '22, Charlie Estes '22, Daniel Qin '22, Jimin Kang '23
+Made by Kyler Kopacz '21, Chris Murphy '22, Charlie Estes '22, Daniel Qin '22, Jimin Kang '23, Trevor Gasgarth '24
 
 ## **Setup**:
 
