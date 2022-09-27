@@ -65,7 +65,7 @@ def parse_message(data):
         msg = getLigma()
     elif recievedMessage[0].lower().strip() == '!train':
         msg = getTrain()
-    elif 'communism' in recieveMessaged or 'marx' in recievedMessage or 'stallin' in recievedMessage:
+    elif 'communism' in recievedMessage or 'marx' in recievedMessage or 'stallin' in recievedMessage:
         msg = getCommunism()
     elif recievedMessage[0].lower().strip() == '!help':
         msg = '''
