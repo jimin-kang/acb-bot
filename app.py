@@ -65,6 +65,8 @@ def parse_message(data):
         msg = getLigma()
     elif recievedMessage[0].lower().strip() == '!train':
         msg = getTrain()
+    elif 'communism' in recievedMessaged:
+        msg = getCommunism()
     elif recievedMessage[0].lower().strip() == '!help':
         msg = '''
 BrotherBot v1.13.0 Commands:
@@ -257,4 +259,13 @@ def getLigma():
 
 def getTrain():
     msg = 'ass wipe'
+    return msg
+
+def getCommunism():
+    msg = 'https://en.wikipedia.org/wiki/Red_Terror\n' \
+          'https://en.wikipedia.org/wiki/Soviet_famine_of_1930%E2%80%931933\n' \
+          'https://en.wikipedia.org/wiki/Great_Purge\n' \
+          'https://en.wikipedia.org/wiki/Soviet_war_crimes\n' \
+          'https://en.wikipedia.org/wiki/Great_Chinese_Famine\n' \
+          'https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre'
     return msg
