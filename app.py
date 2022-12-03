@@ -39,35 +39,35 @@ def parse_message(data):
     This could really be re-worked but this is what got brobot to where he is today
     '''
     # get the actual text from the message that was sent in the chat
-    recievedMessage = data['text'].split('\n')
-    print(f"RECEIVED MESSAGE:{recievedMessage}")
-    print(f"EDITED MESSAGE:{recievedMessage[0].lower().strip()}")
+    receivedMessage = data['text'].split('\n')
+    print(f"RECEIVED MESSAGE:{receivedMessage}")
+    print(f"EDITED MESSAGE:{receivedMessage[0].lower().strip()}")
     # branch to the correct function according to the text that we got
-    if recievedMessage[0].lower().strip() == '!weather':
+    if receivedMessage[0].lower().strip() == '!weather':
         msg = getWeather()
-    elif recievedMessage[0].lower().strip() == '!hello':
+    elif receivedMessage[0].lower().strip() == '!hello':
         msg = "Hey {}!".format(data['name'])
-    elif recievedMessage[0].lower().strip() == '!quote':
+    elif receivedMessage[0].lower().strip() == '!quote':
         msg = getQuote()
-    elif recievedMessage[0].lower().strip() == '!fun':
+    elif receivedMessage[0].lower().strip() == '!fun':
         msg = getFun()
-    elif recievedMessage[0].lower().strip() == '!news':
+    elif receivedMessage[0].lower().strip() == '!news':
         msg = getNews()
-    elif recievedMessage[0].lower().strip() == '!breakfast':
+    elif receivedMessage[0].lower().strip() == '!breakfast':
         msg = getMeal_Updated('Breakfast')
-    elif recievedMessage[0].lower().strip() == '!lunch':
+    elif receivedMessage[0].lower().strip() == '!lunch':
         msg = getMeal_Updated('Lunch')
-    elif recievedMessage[0].lower().strip() == '!dinner':
+    elif receivedMessage[0].lower().strip() == '!dinner':
         msg = getMeal_Updated('Dinner')
-    elif recievedMessage[0].lower().strip() == '!gng':
+    elif receivedMessage[0].lower().strip() == '!gng':
         msg = getGNG()
-    elif recievedMessage[0].lower().strip() == '!ligma':
+    elif receivedMessage[0].lower().strip() == '!ligma':
         msg = getLigma()
-    elif recievedMessage[0].lower().strip() == '!train':
+    elif receivedMessage[0].lower().strip() == '!train':
         msg = getTrain()
-    elif any('communism' in i for i in recievedMessage) or receivedMessage[0].lower().strip() == '!communism':
+    elif receivedMessage[0].lower().strip() == '!communism':
         msg = getCommunism()
-    elif recievedMessage[0].lower().strip() == '!help':
+    elif receivedMessage[0].lower().strip() == '!help':
         msg = '''
 BrotherBot v1.13.0 Commands:
 
