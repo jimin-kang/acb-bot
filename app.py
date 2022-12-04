@@ -12,13 +12,11 @@ import textwrap
 
 
 # global variables to be used by the app later.
-app = Flask(__name__)
+#app = Flask(__name__)
 location_coords = {'x': '42.372400734', 'y': '-72.516410713'}
 location_name = "Amherst"
 
-
-
-@app.route('/', methods=['POST'])
+#@app.route('/', methods=['POST'])
 def webhook():
     # get the message from the POST request
     data = request.get_json()
@@ -59,6 +57,8 @@ def parse_message(data):
         msg = getMeal_Updated('Lunch')
     elif receivedMessage[0].lower().strip() == '!dinner':
         msg = getMeal_Updated('Dinner')
+    elif receivedMessage[0].lower().strip() == '!latenight':
+        msg = getMeal_Updated('Late Night')
     elif receivedMessage[0].lower().strip() == '!gng':
         msg = getGNG()
     elif receivedMessage[0].lower().strip() == '!ligma':
@@ -68,7 +68,11 @@ def parse_message(data):
     elif receivedMessage[0].lower().strip() == '!communism':
         msg = getCommunism()
     elif receivedMessage[0].lower().strip() == '!help':
-        msg = '''
+        msg = getHelp()
+    return msg
+
+def getHelp():
+    msg = '''
 BrotherBot v1.13.0 Commands:
 
 "!Weather" - Get the current and future weather for Amherst College
@@ -79,16 +83,15 @@ BrotherBot v1.13.0 Commands:
 
 "!Fun" - To get the weekend's schedule
 
-"!Breakfast/Lunch/Dinner" - to get the Valentine Dining Hall meals for the specified meal
+"!Breakfast/Lunch/Dinner/Late Night" - to get the Valentine Dining Hall meals for the specified meal
 
 "!gng" - to get the Grab and Go Menu for the day
 
 "!Help" - print out some help for using broterbot
+
+"!Communism" - Learn about the economic theory
     '''
-
-    # return the message to be printed out
     return msg
-
 
 def send_message(msg):
     ''' This message literally just sends (the parameter) to the groupchat'''
@@ -158,7 +161,6 @@ def getMeal_Updated(meal):
     '''
 
     today = datetime.today().strftime('%A, %B %d, %Y') #ex: Monday, August 29, 2022
-
     #if day number is single digit, remove the extra 0 (ex: September 01 -> September 1)
     dayNum = today.split(" ")[2] #day number will be the third element in "Monday, August 29, 2022" format
     if dayNum.startswith("0"):
@@ -171,59 +173,81 @@ def getMeal_Updated(meal):
     results = soup.find(text=today)
     # print(results.parent)
     meals = results.parent.find_next('section').find_all('article')
+    #print(results.parent.find_next('section'))
     msg = ''
     lineNum = 0
     mealDict = {
         "Breakfast" : 0,
         "Lunch" : 1,
-        "Dinner" : 2
+        "Dinner" : 2,
+        "Late Night" : 3
     }
+    
     mealNum = mealDict[meal]
-    for string in meals[mealNum].strings:
-      string = str(string)
-      if string=="\n":
-        # msg+="Q"+'\n'
-        pass
-      else:
-        if lineNum==0: #formatting for first line stating the meal
-          # pass
-          # string+=":"
-          string = string + ":"+"\n"
-        else:
-          #add indent to start of string
-          if lineNum%2==1:
-            # string = "    " + string + ":"
-            string = "\n"+"***" + string + "***"
-          else:
-            # string = "        " + string
-            string = string
-          #if string is listing items, add an extra indent at start
-          #textwrap.indent(text, amount*' ')
-        #add new line
-        msg+=string+'\n'
-        lineNum+=1
-    msg = "\n".join(msg.split("\n")[:-2])
+    if mealNum < 3:
+        # Formatting the meals
+        for string in meals[mealNum].strings:
+            string = str(string)
+            if string=="\n":
+                pass
+            else:
+                if lineNum==0:
+                    string = string + ":"+"\n"
+                else:
+                    if lineNum%2==1:
+                        string = "\n"+"***" + string + "***"
+                    else:
+                        string = string
+                msg+=string+'\n'
+                lineNum+=1
+        msg = "\n".join(msg.split("\n")[:-2])
+
+    if mealNum >= len(meals):
+        return 'No Late Night Today'
+    elif mealNum == 3:
+        for index, i in enumerate(meals[mealNum].strings):
+            i = str(i)
+            if i =="\n":
+                continue
+            if lineNum == 0:
+                i+="\n\n"
+            lineNum+=1
+            i = i.replace('; ','\n')
+            msg+=i
     return msg
 
 def getGNG():
     '''
-    This is the function to get the GNG meal for the day. If they change the website, this is going to break
+    This is the function to get the current meal. If they change the meal website, this will be broken.
     '''
+    today = datetime.today().strftime('%A, %B %d, %Y') #ex: Monday, August 29, 2022
+    weekend = ['Saturday','Sunday']
+    for i in weekend:
+        if i in today:
+            return "No Grab-n-Go today"
+    #if day number is single digit, remove the extra 0 (ex: September 01 -> September 1)
+    dayNum = today.split(" ")[2] #day number will be the third element in "Monday, August 29, 2022" format
+    if dayNum.startswith("0"):
+      dayNum_edited = dayNum[1:]
+      today = today.replace(dayNum, dayNum_edited, 1)
 
-    # get the current time to pass into the val page
-    date = strftime("%Y-%m-%d", gmtime())
-
-    # get the current grab and go page
-    msg = 'Grab and Go Hours (Typically) 11:00am - 2:30pm Monday - Friday\n\n'
-    counter = 0
-    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/dining-options-and-menus/grabngo/Menus')
+    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/dining-options-and-menus/grab-n-go-menu')
     soup = BeautifulSoup(page.content, 'html.parser')
-    for meal in soup.find_all(id='dining-menu-' + date + '-grab-n-go-link-menu-listing'):
-        for string in meal.strings:
-            if counter % 2 == 0:
-                string += ':'
-            counter += 1
-            msg += string + '\n\n'
+    results = soup.find(text=today)
+    meals = results.parent.parent.parent.strings
+    copyMeals = []
+    chars = 'qwertyuiopasdfghjklzxcvbnm,.1234567890"QWERTYUIOPASDFGHJKLZXCVBNM &'
+    for i in meals:
+        line = ''
+        for j in i:
+            if j in chars:
+                line+=j
+        if not line == '':
+            copyMeals.append(line)
+    msg = ''
+    for i in copyMeals:
+        msg+=i
+        msg+='\n\n'
     return msg
 
 def getQuote():
