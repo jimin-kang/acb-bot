@@ -12,11 +12,11 @@ import textwrap
 
 
 # global variables to be used by the app later.
-#app = Flask(__name__)
+app = Flask(__name__)
 location_coords = {'x': '42.372400734', 'y': '-72.516410713'}
 location_name = "Amherst"
 
-#@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
     # get the message from the POST request
     data = request.get_json()
@@ -83,13 +83,15 @@ BrotherBot v1.13.0 Commands:
 
 "!Fun" - To get the weekend's schedule
 
-"!Breakfast/Lunch/Dinner/Late Night" - to get the Valentine Dining Hall meals for the specified meal
+"!Breakfast/Lunch/Dinner/Late Night" - Get the Valentine Dining Hall meals for the specified meal
 
-"!gng" - to get the Grab and Go Menu for the day
+"!gng" - Get the Grab and Go Menu for the day
 
-"!Help" - print out some help for using broterbot
+"!News" - Get the latest Mammo news letter
 
-"!Communism" - Learn about the economic theory
+"!Help" - To get BroBot commands
+
+"!Communism" - Learn about the economic theory of Communism
     '''
     return msg
 
@@ -104,7 +106,6 @@ def send_message(msg):
         }
 
     requests.post(url, json=data)
-
 
 def getWeather():
     '''
@@ -269,7 +270,7 @@ def getFun():
     
     print("Fun function called")
     
-    msg = 'Swim on Friday, basketball Saturday, soccer Sunday.'
+    msg = 'Ask Newbie'
 
     return msg
 
@@ -279,10 +280,6 @@ def getNews():
 
 def getLigma():
     msg = 'ligma balls bitch @Robin'
-    return msg
-
-def getTrain():
-    msg = 'ass wipe'
     return msg
 
 def getCommunism():
