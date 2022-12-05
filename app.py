@@ -63,8 +63,6 @@ def parse_message(data):
         msg = getGNG()
     elif receivedMessage[0].lower().strip() == '!ligma':
         msg = getLigma()
-    elif receivedMessage[0].lower().strip() == '!train':
-        msg = getTrain()
     elif receivedMessage[0].lower().strip() == '!communism':
         msg = getCommunism()
     elif receivedMessage[0].lower().strip() == '!help':
@@ -89,9 +87,9 @@ BrotherBot v1.13.0 Commands:
 
 "!News" - Get the latest Mammo news letter
 
-"!Help" - To get BroBot commands
-
 "!Communism" - Learn about the economic theory of Communism
+
+"!Help" - To get BroBot commands
     '''
     return msg
 
