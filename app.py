@@ -166,7 +166,7 @@ def getMeal_Updated(meal):
       dayNum_edited = dayNum[1:]
       today = today.replace(dayNum, dayNum_edited, 1)
     
-    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/menu')
+    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/menu', verify = False)
     soup = BeautifulSoup(page.content, 'html.parser')
     # results = soup.find_all(id='dining-menu-' + date + '-' + meal)
     results = soup.find(text=today)
@@ -230,7 +230,7 @@ def getGNG():
       dayNum_edited = dayNum[1:]
       today = today.replace(dayNum, dayNum_edited, 1)
 
-    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/dining-options-and-menus/grab-n-go-menu')
+    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/dining-options-and-menus/grab-n-go-menu', verify = False)
     soup = BeautifulSoup(page.content, 'html.parser')
     results = soup.find(text=today)
     meals = results.parent.parent.parent.strings
