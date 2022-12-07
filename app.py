@@ -9,6 +9,7 @@ from flask import Flask, request
 from pathlib import Path
 from datetime import datetime
 import textwrap
+import openai
 
 
 # global variables to be used by the app later.
@@ -65,9 +66,28 @@ def parse_message(data):
         msg = getLigma()
     elif receivedMessage[0].lower().strip() == '!communism':
         msg = getCommunism()
+    elif receivedMessage[0].lower().strip() == '!Chat':
+        msg = aiBot(receivedMessage)
     elif receivedMessage[0].lower().strip() == '!help':
         msg = getHelp()
     return msg
+
+
+def aiBot(input):
+    input = input[0]
+    input = input[6:]
+    print(f"Input:\t{input} \n")
+    api_key = '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'
+    openai.organization = 'org-9JJxC5Dd7efT1PTXawq62Hl9'
+    openai.api_key = api_key
+    response = openai.Completion.create(
+    model = 'text-davinci-003',
+    prompt = input,
+    max_tokens = 200
+    )
+    print(response)
+    return response.get('choices')[0].get('text')
+
 
 def getHelp():
     msg = '''
