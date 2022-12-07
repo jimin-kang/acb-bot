@@ -25,8 +25,13 @@ def webhook():
     # parse the data that we got from the POST request
     msg = parse_message(data)
     
+    if type(msg).__name__ == 'list':
+        for i in msg:
+            send_message(i)
     # send the message that we just got from parsing the input
-    send_message(msg)
+    else:
+        send_message(msg)
+
 
     # return the correct code
     return "ok", 200
@@ -83,10 +88,18 @@ def aiBot(input):
     response = openai.Completion.create(
     model = 'text-davinci-003',
     prompt = input,
-    max_tokens = 200
+    max_tokens = 2000
     )
-    print(response)
-    return response.get('choices')[0].get('text')
+    response = response.get('choices')[0].get('text')
+    arr = []
+    while len(response) > 0:
+        if len(response) > 1000:
+            arr.append(response[:1000])
+            response = response[1000:]
+        else:
+            arr.append(response)
+            response = ''
+    return arr
 
 
 def getHelp():
