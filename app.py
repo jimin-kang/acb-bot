@@ -77,7 +77,7 @@ def aiBot(input):
     input = input[0]
     input = input[6:]
     print(f"Input:\t{input} \n")
-    api_key = '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'
+    api_key = os.getenv('API')
     openai.organization = 'org-9JJxC5Dd7efT1PTXawq62Hl9'
     openai.api_key = api_key
     response = openai.Completion.create(
