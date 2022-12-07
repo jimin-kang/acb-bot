@@ -66,7 +66,7 @@ def parse_message(data):
         msg = getLigma()
     elif receivedMessage[0].lower().strip() == '!communism':
         msg = getCommunism()
-    elif receivedMessage[0].lower().strip() == '!Chat':
+    elif receivedMessage[0].lower().strip() == '!chat':
         msg = aiBot(receivedMessage)
     elif receivedMessage[0].lower().strip() == '!help':
         msg = getHelp()
