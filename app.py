@@ -9,6 +9,7 @@ from flask import Flask, request
 from pathlib import Path
 from datetime import datetime
 import textwrap
+import openai
 
 
 # global variables to be used by the app later.
@@ -24,8 +25,13 @@ def webhook():
     # parse the data that we got from the POST request
     msg = parse_message(data)
     
+    if type(msg).__name__ == 'list':
+        for i in msg:
+            send_message(i)
     # send the message that we just got from parsing the input
-    send_message(msg)
+    else:
+        send_message(msg)
+
 
     # return the correct code
     return "ok", 200
@@ -63,13 +69,38 @@ def parse_message(data):
         msg = getGNG()
     elif receivedMessage[0].lower().strip() == '!ligma':
         msg = getLigma()
-    elif receivedMessage[0].lower().strip() == '!train':
-        msg = getTrain()
     elif receivedMessage[0].lower().strip() == '!communism':
         msg = getCommunism()
+    elif '!chat' in receivedMessage[0].lower().strip():
+        msg = aiBot(receivedMessage)
     elif receivedMessage[0].lower().strip() == '!help':
         msg = getHelp()
     return msg
+
+
+def aiBot(input):
+    input = input[0]
+    input = input[6:]
+    print(f"Input:\t{input} \n")
+    api_key = os.getenv('API')
+    openai.organization = 'org-9JJxC5Dd7efT1PTXawq62Hl9'
+    openai.api_key = api_key
+    response = openai.Completion.create(
+    model = 'text-davinci-003',
+    prompt = input,
+    max_tokens = 2000
+    )
+    response = response.get('choices')[0].get('text')
+    arr = []
+    while len(response) > 0:
+        if len(response) > 1000:
+            arr.append(response[:1000])
+            response = response[1000:]
+        else:
+            arr.append(response)
+            response = ''
+    return arr
+
 
 def getHelp():
     msg = '''
@@ -89,9 +120,9 @@ BrotherBot v1.13.0 Commands:
 
 "!News" - Get the latest Mammo news letter
 
-"!Help" - To get BroBot commands
-
 "!Communism" - Learn about the economic theory of Communism
+
+"!Help" - To get BroBot commands
     '''
     return msg
 
@@ -168,7 +199,7 @@ def getMeal_Updated(meal):
       dayNum_edited = dayNum[1:]
       today = today.replace(dayNum, dayNum_edited, 1)
     
-    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/menu')
+    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/menu', verify = False)
     soup = BeautifulSoup(page.content, 'html.parser')
     # results = soup.find_all(id='dining-menu-' + date + '-' + meal)
     results = soup.find(text=today)
@@ -232,7 +263,7 @@ def getGNG():
       dayNum_edited = dayNum[1:]
       today = today.replace(dayNum, dayNum_edited, 1)
 
-    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/dining-options-and-menus/grab-n-go-menu')
+    page = requests.get('https://www.amherst.edu/campuslife/housing-dining/dining/dining-options-and-menus/grab-n-go-menu', verify = False)
     soup = BeautifulSoup(page.content, 'html.parser')
     results = soup.find(text=today)
     meals = results.parent.parent.parent.strings
